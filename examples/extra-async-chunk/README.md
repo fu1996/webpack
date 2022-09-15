@@ -390,7 +390,7 @@ chunk (runtime: main) 767.output.js 21 bytes [rendered]
     [used exports unknown]
     cjs self exports reference ./d.js 1:0-14
     cjs require ./d ./example.js 7:1-15
-webpack 5.51.1 compiled successfully
+webpack 5.60.0 compiled successfully
 ```
 
 ## Production mode
@@ -431,5 +431,5 @@ chunk (runtime: main) 767.output.js 21 bytes [rendered]
     [used exports unknown]
     cjs self exports reference ./d.js 1:0-14
     cjs require ./d ./example.js 7:1-15
-webpack 5.51.1 compiled successfully
+webpack 5.60.0 compiled successfully
 ```

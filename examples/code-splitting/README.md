@@ -351,7 +351,7 @@ chunk (runtime: main) 796.output.js 22 bytes [rendered]
   ./node_modules/d.js 11 bytes [built] [code generated]
     [used exports unknown]
     cjs require d ./example.js 5:12-24
-webpack 5.51.1 compiled successfully
+webpack 5.60.0 compiled successfully
 ```
 
 ## Production mode
@@ -374,5 +374,5 @@ chunk (runtime: main) 796.output.js 22 bytes [rendered]
   ./node_modules/d.js 11 bytes [built] [code generated]
     [used exports unknown]
     cjs require d ./example.js 5:12-24
-webpack 5.51.1 compiled successfully
+webpack 5.60.0 compiled successfully
 ```

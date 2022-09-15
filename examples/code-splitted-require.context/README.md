@@ -357,7 +357,7 @@ chunk (runtime: main) 577.output.js 457 bytes [rendered]
     [no exports]
     [used exports unknown]
     cjs require context ./example.js 3:11-64
-webpack 5.51.1 compiled successfully
+webpack 5.60.0 compiled successfully
 ```
 
 ## Production mode
@@ -377,5 +377,5 @@ chunk (runtime: main) 577.output.js 457 bytes [rendered]
   ../require.context/templates/ sync ^\.\/.*$ 217 bytes [built] [code generated]
     [no exports]
     cjs require context ./example.js 3:11-64
-webpack 5.51.1 compiled successfully
+webpack 5.60.0 compiled successfully
 ```

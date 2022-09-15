@@ -715,7 +715,7 @@ chunk (runtime: pageA) pageA.js (pageA) 105 bytes (javascript) 5.92 KiB (runtime
   ./pageA.js 105 bytes [built] [code generated]
     [used exports unknown]
     entry ./pageA pageA
-webpack 5.51.1 compiled successfully
+webpack 5.60.0 compiled successfully
 ```
 
 ## Production mode
@@ -758,5 +758,5 @@ chunk (runtime: pageA) pageA.js (pageA) 105 bytes (javascript) 5.92 KiB (runtime
   ./pageA.js 105 bytes [built] [code generated]
     [no exports used]
     entry ./pageA pageA
-webpack 5.51.1 compiled successfully
+webpack 5.60.0 compiled successfully
 ```

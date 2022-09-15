@@ -407,7 +407,7 @@ chunk (runtime: main) 718.output.js 38 bytes [rendered]
     [used exports unknown]
     import() context element ./foo ./templates/ lazy ^\.\/.*$ include: \.js$ exclude: \.noimport\.js$ namespace object ./foo
     import() context element ./foo.js ./templates/ lazy ^\.\/.*$ include: \.js$ exclude: \.noimport\.js$ namespace object ./foo.js
-webpack 5.51.1 compiled successfully
+webpack 5.60.0 compiled successfully
 ```
 
 ## Production mode
@@ -445,5 +445,5 @@ chunk (runtime: main) 718.output.js 38 bytes [rendered]
     [exports: default]
     import() context element ./foo ./templates/ lazy ^\.\/.*$ include: \.js$ exclude: \.noimport\.js$ namespace object ./foo
     import() context element ./foo.js ./templates/ lazy ^\.\/.*$ include: \.js$ exclude: \.noimport\.js$ namespace object ./foo.js
-webpack 5.51.1 compiled successfully
+webpack 5.60.0 compiled successfully
 ```

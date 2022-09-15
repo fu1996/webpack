@@ -20,7 +20,12 @@ module.exports = {
 	// 	loggingDebug: /HttpUriPlugin/
 	// },
 	experiments: {
-		buildHttp: true
+		buildHttp: [
+			"https://cdn.esm.sh/",
+			"https://cdn.skypack.dev/",
+			"https://jspm.dev/",
+			/^https:\/\/unpkg\.com\/.+\?module$/
+		]
 	}
 };
 ```
@@ -30,7 +35,7 @@ module.exports = {
 ## Unoptimized
 
 ```
-asset output.js 82.6 KiB [emitted] (name: main)
+asset output.js 82.7 KiB [emitted] (name: main)
 runtime modules 670 bytes 3 modules
 modules by path https:// 30 KiB
   modules by path https://jspm.dev/ 16.1 KiB
@@ -48,7 +53,7 @@ modules by path https:// 30 KiB
   [no exports]
   [used exports unknown]
   entry ./example.js main
-webpack 5.53.0 compiled successfully
+webpack 5.60.0 compiled successfully
 ```
 
 ## Production mode
@@ -60,5 +65,5 @@ orphan modules 30 KiB [orphan] 26 modules
   [no exports]
   [no exports used]
   entry ./example.js main
-webpack 5.53.0 compiled successfully
+webpack 5.60.0 compiled successfully
 ```
