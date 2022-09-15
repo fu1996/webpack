@@ -95,7 +95,7 @@ export type LibraryExport = string[] | string;
  */
 export type LibraryName = string[] | string | LibraryCustomUmdObject;
 /**
- * Type of library (types included by default are 'var', 'module', 'assign', 'assign-properties', 'this', 'window', 'self', 'global', 'commonjs', 'commonjs2', 'commonjs-module', 'amd', 'amd-require', 'umd', 'umd2', 'jsonp', 'system', but others might be added by plugins).
+ * Type of library (types included by default are 'var', 'module', 'assign', 'assign-properties', 'this', 'window', 'self', 'global', 'commonjs', 'commonjs2', 'commonjs-module', 'commonjs-static', 'amd', 'amd-require', 'umd', 'umd2', 'jsonp', 'system', but others might be added by plugins).
  */
 export type LibraryType =
 	| (
@@ -110,6 +110,7 @@ export type LibraryType =
 			| "commonjs"
 			| "commonjs2"
 			| "commonjs-module"
+			| "commonjs-static"
 			| "amd"
 			| "amd-require"
 			| "umd"
@@ -189,6 +190,7 @@ export type ExternalsType =
 	| "commonjs"
 	| "commonjs2"
 	| "commonjs-module"
+	| "commonjs-static"
 	| "amd"
 	| "amd-require"
 	| "umd"
@@ -444,6 +446,14 @@ export type CompareBeforeEmit = boolean;
  */
 export type CrossOriginLoading = false | "anonymous" | "use-credentials";
 /**
+ * Specifies the filename template of non-initial output css files on disk. You must **not** specify an absolute path here, but the path may contain folders separated by '/'! The specified path is joined with the value of the 'output.path' option to determine the location on disk.
+ */
+export type CssChunkFilename = FilenameTemplate;
+/**
+ * Specifies the filename template of output css files on disk. You must **not** specify an absolute path here, but the path may contain folders separated by '/'! The specified path is joined with the value of the 'output.path' option to determine the location on disk.
+ */
+export type CssFilename = FilenameTemplate;
+/**
  * Similar to `output.devtoolModuleFilenameTemplate`, but used in the case of duplicate module identifiers.
  */
 export type DevtoolFallbackModuleFilenameTemplate = string | Function;
@@ -671,7 +681,7 @@ export type AssetGeneratorDataUrl =
 	| AssetGeneratorDataUrlOptions
 	| AssetGeneratorDataUrlFunction;
 /**
- * Function that executes for module and should return an DataUrl string.
+ * Function that executes for module and should return an DataUrl string. It can have a string as 'ident' property which contributes to the module hash.
  */
 export type AssetGeneratorDataUrlFunction = (
 	source: string | Buffer,
@@ -682,6 +692,15 @@ export type AssetGeneratorDataUrlFunction = (
  */
 export type AssetGeneratorOptions = AssetInlineGeneratorOptions &
 	AssetResourceGeneratorOptions;
+/**
+ * Emit the asset in the specified folder relative to 'output.path'. This should only be needed when custom 'publicPath' is specified to match the folder structure there.
+ */
+export type AssetModuleOutputPath =
+	| string
+	| ((
+			pathData: import("../lib/Compilation").PathData,
+			assetInfo?: import("../lib/Compilation").AssetInfo
+	  ) => string);
 /**
  * Function that executes for module and should return whenever asset should be inlined as DataUrl.
  */
@@ -1020,6 +1039,14 @@ export interface EntryObject {
  */
 export interface EntryDescription {
 	/**
+	 * Enable/disable creating async chunks that are loaded on demand.
+	 */
+	asyncChunks?: boolean;
+	/**
+	 * Base uri for this entry.
+	 */
+	baseUri?: string;
+	/**
 	 * The method of loading chunks (methods included by default are 'jsonp' (web), 'import' (ESM), 'importScripts' (WebWorker), 'require' (sync node.js), 'async-node' (async node.js), but others might be added by plugins).
 	 */
 	chunkLoading?: ChunkLoading;
@@ -1073,7 +1100,7 @@ export interface LibraryOptions {
 	 */
 	name?: LibraryName;
 	/**
-	 * Type of library (types included by default are 'var', 'module', 'assign', 'assign-properties', 'this', 'window', 'self', 'global', 'commonjs', 'commonjs2', 'commonjs-module', 'amd', 'amd-require', 'umd', 'umd2', 'jsonp', 'system', but others might be added by plugins).
+	 * Type of library (types included by default are 'var', 'module', 'assign', 'assign-properties', 'this', 'window', 'self', 'global', 'commonjs', 'commonjs2', 'commonjs-module', 'commonjs-static', 'amd', 'amd-require', 'umd', 'umd2', 'jsonp', 'system', but others might be added by plugins).
 	 */
 	type: LibraryType;
 	/**
@@ -1479,6 +1506,15 @@ export interface ResolveOptions {
 	 */
 	exportsFields?: string[];
 	/**
+	 * An object which maps extension to extension aliases.
+	 */
+	extensionAlias?: {
+		/**
+		 * Extension alias.
+		 */
+		[k: string]: string[] | string;
+	};
+	/**
 	 * Extensions added to the request when trying to find the file.
 	 */
 	extensions?: string[];
@@ -1736,6 +1772,12 @@ export interface OptimizationSplitChunksOptions {
 		 */
 		automaticNameDelimiter?: string;
 		/**
+		 * Select chunks for determining shared modules (defaults to "async", "initial" and "all" requires adding these chunks to the HTML).
+		 */
+		chunks?:
+			| ("initial" | "async" | "all")
+			| ((chunk: import("../lib/Chunk")) => boolean);
+		/**
 		 * Maximal size hint for the on-demand chunks.
 		 */
 		maxAsyncSize?: OptimizationSplitChunksSizes;
@@ -1923,6 +1965,10 @@ export interface Output {
 	 */
 	assetModuleFilename?: AssetModuleFilename;
 	/**
+	 * Enable/disable creating async chunks that are loaded on demand.
+	 */
+	asyncChunks?: boolean;
+	/**
 	 * Add a comment in the UMD wrapper.
 	 */
 	auxiliaryComment?: AuxiliaryComment;
@@ -1962,6 +2008,14 @@ export interface Output {
 	 * This option enables cross-origin loading of chunks.
 	 */
 	crossOriginLoading?: CrossOriginLoading;
+	/**
+	 * Specifies the filename template of non-initial output css files on disk. You must **not** specify an absolute path here, but the path may contain folders separated by '/'! The specified path is joined with the value of the 'output.path' option to determine the location on disk.
+	 */
+	cssChunkFilename?: CssChunkFilename;
+	/**
+	 * Specifies the filename template of output css files on disk. You must **not** specify an absolute path here, but the path may contain folders separated by '/'! The specified path is joined with the value of the 'output.path' option to determine the location on disk.
+	 */
+	cssFilename?: CssFilename;
 	/**
 	 * Similar to `output.devtoolModuleFilenameTemplate`, but used in the case of duplicate module identifiers.
 	 */
@@ -2047,7 +2101,7 @@ export interface Output {
 	 */
 	libraryExport?: LibraryExport;
 	/**
-	 * Type of library (types included by default are 'var', 'module', 'assign', 'assign-properties', 'this', 'window', 'self', 'global', 'commonjs', 'commonjs2', 'commonjs-module', 'amd', 'amd-require', 'umd', 'umd2', 'jsonp', 'system', but others might be added by plugins).
+	 * Type of library (types included by default are 'var', 'module', 'assign', 'assign-properties', 'this', 'window', 'self', 'global', 'commonjs', 'commonjs2', 'commonjs-module', 'commonjs-static', 'amd', 'amd-require', 'umd', 'umd2', 'jsonp', 'system', but others might be added by plugins).
 	 */
 	libraryTarget?: LibraryType;
 	/**
@@ -2160,6 +2214,14 @@ export interface Environment {
 	 * The environment supports EcmaScript Module syntax to import EcmaScript modules (import ... from '...').
 	 */
 	module?: boolean;
+	/**
+	 * The environment supports optional chaining ('obj?.a' or 'obj?.()').
+	 */
+	optionalChaining?: boolean;
+	/**
+	 * The environment supports template literals.
+	 */
+	templateLiteral?: boolean;
 }
 /**
  * Use a Trusted Types policy to create urls for chunks.
@@ -2666,10 +2728,31 @@ export interface AssetResourceGeneratorOptions {
 	 */
 	filename?: FilenameTemplate;
 	/**
+	 * Emit the asset in the specified folder relative to 'output.path'. This should only be needed when custom 'publicPath' is specified to match the folder structure there.
+	 */
+	outputPath?: AssetModuleOutputPath;
+	/**
 	 * The 'publicPath' specifies the public URL address of the output files when referenced in a browser.
 	 */
 	publicPath?: RawPublicPath;
 }
+/**
+ * Options for css handling.
+ */
+export interface CssExperimentOptions {
+	/**
+	 * Avoid generating and loading a stylesheet and only embed exports from css into output javascript files.
+	 */
+	exportsOnly?: boolean;
+}
+/**
+ * Generator options for css modules.
+ */
+export interface CssGeneratorOptions {}
+/**
+ * Parser options for css modules.
+ */
+export interface CssParserOptions {}
 /**
  * No generator options are supported for this module type.
  */
@@ -2682,6 +2765,14 @@ export interface EmptyParserOptions {}
  * An object with entry point description.
  */
 export interface EntryDescriptionNormalized {
+	/**
+	 * Enable/disable creating async chunks that are loaded on demand.
+	 */
+	asyncChunks?: boolean;
+	/**
+	 * Base uri for this entry.
+	 */
+	baseUri?: string;
 	/**
 	 * The method of loading chunks (methods included by default are 'jsonp' (web), 'import' (ESM), 'importScripts' (WebWorker), 'require' (sync node.js), 'async-node' (async node.js), but others might be added by plugins).
 	 */
@@ -2733,13 +2824,13 @@ export interface EntryStaticNormalized {
  */
 export interface ExperimentsCommon {
 	/**
-	 * Allow module type 'asset' to generate assets.
-	 */
-	asset?: boolean;
-	/**
 	 * Support WebAssembly as asynchronous EcmaScript Module.
 	 */
 	asyncWebAssembly?: boolean;
+	/**
+	 * Enable backward-compat layer with deprecation warnings for many webpack 4 APIs.
+	 */
+	backCompat?: boolean;
 	/**
 	 * Enable additional in memory caching of modules that are unchanged and reference only unchanged modules.
 	 */
@@ -2749,7 +2840,7 @@ export interface ExperimentsCommon {
 	 */
 	futureDefaults?: boolean;
 	/**
-	 * Enable module and chunk layers.
+	 * Enable module layers.
 	 */
 	layers?: boolean;
 	/**
@@ -2819,6 +2910,10 @@ export interface HttpUriOptions {
 	 */
 	lockfileLocation?: string;
 	/**
+	 * Proxy configuration, which can be used to specify a proxy server to use for HTTP requests.
+	 */
+	proxy?: string;
+	/**
 	 * When set, resources of existing lockfile entries will be fetched and entries will be upgraded when resource content has changed.
 	 */
 	upgrade?: boolean;
@@ -2844,6 +2939,26 @@ export interface JavascriptParserOptions {
 	 */
 	commonjsMagicComments?: boolean;
 	/**
+	 * Enable/disable parsing "import { createRequire } from "module"" and evaluating createRequire().
+	 */
+	createRequire?: boolean | string;
+	/**
+	 * Specifies global mode for dynamic import.
+	 */
+	dynamicImportMode?: "eager" | "weak" | "lazy" | "lazy-once";
+	/**
+	 * Specifies global prefetch for dynamic import.
+	 */
+	dynamicImportPrefetch?: number | boolean;
+	/**
+	 * Specifies global preload for dynamic import.
+	 */
+	dynamicImportPreload?: number | boolean;
+	/**
+	 * Specifies the behavior of invalid export names in "import ... from ..." and "export ... from ...".
+	 */
+	exportsPresence?: "error" | "warn" | "auto" | false;
+	/**
 	 * Enable warnings for full dynamic dependencies.
 	 */
 	exprContextCritical?: boolean;
@@ -2868,9 +2983,25 @@ export interface JavascriptParserOptions {
 	 */
 	import?: boolean;
 	/**
+	 * Specifies the behavior of invalid export names in "import ... from ...".
+	 */
+	importExportsPresence?: "error" | "warn" | "auto" | false;
+	/**
+	 * Enable/disable evaluating import.meta.
+	 */
+	importMeta?: boolean;
+	/**
+	 * Enable/disable evaluating import.meta.webpackContext.
+	 */
+	importMetaContext?: boolean;
+	/**
 	 * Include polyfills or mocks for various node stuff.
 	 */
 	node?: Node;
+	/**
+	 * Specifies the behavior of invalid export names in "export ... from ...". This might be useful to disable during the migration from "export ... from ..." to "export type ... from ..." when reexporting types in TypeScript.
+	 */
+	reexportExportsPresence?: "error" | "warn" | "auto" | false;
 	/**
 	 * Enable/disable parsing of require.context syntax.
 	 */
@@ -2888,7 +3019,7 @@ export interface JavascriptParserOptions {
 	 */
 	requireJs?: boolean;
 	/**
-	 * Emit errors instead of warnings when imported names don't exist in imported module.
+	 * Deprecated in favor of "exportsPresence". Emit errors instead of warnings when imported names don't exist in imported module.
 	 */
 	strictExportPresence?: boolean;
 	/**
@@ -3035,6 +3166,10 @@ export interface OutputNormalized {
 	 */
 	assetModuleFilename?: AssetModuleFilename;
 	/**
+	 * Enable/disable creating async chunks that are loaded on demand.
+	 */
+	asyncChunks?: boolean;
+	/**
 	 * Add charset attribute for script tag.
 	 */
 	charset?: Charset;
@@ -3070,6 +3205,14 @@ export interface OutputNormalized {
 	 * This option enables cross-origin loading of chunks.
 	 */
 	crossOriginLoading?: CrossOriginLoading;
+	/**
+	 * Specifies the filename template of non-initial output css files on disk. You must **not** specify an absolute path here, but the path may contain folders separated by '/'! The specified path is joined with the value of the 'output.path' option to determine the location on disk.
+	 */
+	cssChunkFilename?: CssChunkFilename;
+	/**
+	 * Specifies the filename template of output css files on disk. You must **not** specify an absolute path here, but the path may contain folders separated by '/'! The specified path is joined with the value of the 'output.path' option to determine the location on disk.
+	 */
+	cssFilename?: CssFilename;
 	/**
 	 * Similar to `output.devtoolModuleFilenameTemplate`, but used in the case of duplicate module identifiers.
 	 */
@@ -3361,6 +3504,10 @@ export interface ExperimentsExtra {
 	 */
 	buildHttp?: HttpUriAllowedUris | HttpUriOptions;
 	/**
+	 * Enable css support.
+	 */
+	css?: boolean | CssExperimentOptions;
+	/**
 	 * Compile entrypoints and import()s only when they are accessed.
 	 */
 	lazyCompilation?: boolean | LazyCompilationOptions;
@@ -3374,9 +3521,13 @@ export interface ExperimentsNormalizedExtra {
 	 */
 	buildHttp?: HttpUriOptions;
 	/**
+	 * Enable css support.
+	 */
+	css?: false | CssExperimentOptions;
+	/**
 	 * Compile entrypoints and import()s only when they are accessed.
 	 */
-	lazyCompilation?: LazyCompilationOptions;
+	lazyCompilation?: false | LazyCompilationOptions;
 }
 /**
  * If an dependency matches exactly a property of the object, the property value is used as dependency.
