@@ -28,6 +28,7 @@ const runCommand = (command, args) => {
 };
 
 /**
+ * 原理是通过判断 node_modules 下的 packageName 是否存在
  * @param {string} packageName name of the package
  * @returns {boolean} is the package installed?
  */
@@ -66,7 +67,9 @@ const runCli = cli => {
 	// eslint-disable-next-line node/no-missing-require
 	const pkg = require(pkgPath);
 	// eslint-disable-next-line node/no-missing-require
-	require(path.resolve(path.dirname(pkgPath), pkg.bin[cli.binName]));
+	const targetPath = path.resolve(path.dirname(pkgPath), pkg.bin[cli.binName]); // node_modules/webpack-cli/bin/cli.js
+	// 找到 webpack-cli/bin/cli.js 并 导入它
+	require(targetPath);
 };
 
 /**
@@ -87,6 +90,9 @@ const cli = {
 	url: "https://github.com/webpack/webpack-cli"
 };
 
+/**
+ * 判断 webpack-cli 是否已经安装
+ */
 if (!cli.installed) {
 	const path = require("path");
 	const fs = require("graceful-fs");

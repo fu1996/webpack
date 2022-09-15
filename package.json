@@ -84,6 +84,7 @@
     "mini-svg-data-uri": "^1.2.3",
     "nyc": "^15.1.0",
     "open-cli": "^6.0.1",
+    "patch-package": "^6.4.7",
     "prettier": "^2.2.0",
     "pretty-format": "^27.0.2",
     "pug": "^3.0.0",
@@ -124,7 +125,7 @@
   "bugs": "https://github.com/webpack/webpack/issues",
   "main": "lib/index.js",
   "bin": {
-    "webpack": "bin/webpack.js"
+    "my-webpack": "bin/webpack.js"
   },
   "types": "types.d.ts",
   "files": [
@@ -137,6 +138,7 @@
     "types.d.ts"
   ],
   "scripts": {
+    "postinstall": "patch-package",
     "setup": "node ./setup/setup.js",
     "jest": "node --expose-gc --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --logHeapUsage",
     "test": "node --expose-gc --max-old-space-size=4096 --experimental-vm-modules --trace-deprecation node_modules/jest-cli/bin/jest --logHeapUsage",
