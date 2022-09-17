@@ -68,7 +68,7 @@ module.exports = {
   \*************************/
 /*! default exports */
 /*! exports [not provided] [no usage info] */
-/*! runtime requirements: module, __webpack_require__.p, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__.p, module, __webpack_require__.* */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports = __webpack_require__.p + "images/89a353e9c515885abd8e.png";
@@ -207,6 +207,171 @@ function createImageElement(title, src) {
 ## webpack output
 
 ```
+Starting loading webpack
+webpack starting
+before create one compiler
+normalized options
+Normalized Entry Options
+apply Webpack Options Base Defaults
+start new Compiler instance
+creating compiler starting 😄
+ResolverFactory created
+after new Compiler instance
+use Node Environment Plugin
+apply Webpack Options Defaults
+hook environment called
+hook afterEnvironment called
+Webpack Options Apply created
+use plugin from WebpackOptions
+hook entryOption called
+hook afterPlugins called
+resolverFactory resolveOptions hook called
+hook afterResolvers called
+hook initialize called
+compiler run start
+this.idle false
+hook beforeRun called
+hook run called
+hook beforeCompile called
+hook compile called
+hook thisCompilation called
+hook compilation called
+compilation created
+entry start build dependencies
+add entry
+compliation addEntry hook called
+add Module Tree
+handle Module Creation
+add entry to factorizeQueue, real job start
+queue add
+queue _ensureProcessing
+queue _startProcessing
+queue add
+queue _ensureProcessing
+queue _startProcessing
+queue add
+queue _startProcessing
+queue _ensureProcessing
+queue add
+queue _ensureProcessing
+queue _startProcessing
+queue add
+queue _ensureProcessing
+queue _startProcessing
+handle Module Creation
+add entry to factorizeQueue, real job start
+queue add
+handle Module Creation
+add entry to factorizeQueue, real job start
+queue add
+handle Module Creation
+add entry to factorizeQueue, real job start
+queue add
+queue _startProcessing
+queue _startProcessing
+queue _startProcessing
+queue add
+queue add
+queue add
+queue _ensureProcessing
+queue _startProcessing
+queue add
+queue _startProcessing
+queue add
+queue _startProcessing
+queue add
+queue _startProcessing
+queue _startProcessing
+queue _startProcessing
+queue _ensureProcessing
+queue add
+queue add
+queue _ensureProcessing
+queue _startProcessing
+queue _startProcessing
+queue add
+queue add
+queue _ensureProcessing
+queue _startProcessing
+queue _startProcessing
+queue add
+queue _ensureProcessing
+queue _startProcessing
+queue add
+queue _ensureProcessing
+queue _startProcessing
+hook make called
+hook finishMake called
+hook afterCompile called
+hook shouldEmit called
+allCallHooks {
+  afterDone: [ { type: 'sync', name: 'webpack-cli' } ],
+  beforeRun: [ { type: 'sync', name: 'NodeEnvironmentPlugin' } ],
+  run: [ { type: 'sync', name: 'webpack-cli' } ],
+  thisCompilation: [
+    { type: 'sync', name: 'ArrayPushCallbackChunkFormatPlugin' },
+    { type: 'sync', name: 'JsonpChunkLoadingPlugin' },
+    { type: 'sync', name: 'StartupChunkDependenciesPlugin' },
+    { type: 'sync', name: 'ImportScriptsChunkLoadingPlugin' },
+    { type: 'sync', name: 'FetchCompileWasmPlugin' },
+    { type: 'sync', name: 'FetchCompileAsyncWasmPlugin' },
+    { type: 'sync', name: 'WorkerPlugin' },
+    { type: 'sync', name: 'SplitChunksPlugin' },
+    { type: 'sync', name: 'ResolverCachePlugin' }
+  ],
+  compilation: [
+    { type: 'sync', name: 'ChunkPrefetchPreloadPlugin' },
+    { type: 'sync', name: 'ModuleInfoHeaderPlugin' },
+    { type: 'sync', name: 'JavascriptModulesPlugin' },
+    { type: 'sync', name: 'JsonModulesPlugin' },
+    { type: 'sync', name: 'AssetModulesPlugin' },
+    { type: 'sync', name: 'EntryPlugin' },
+    { type: 'sync', name: 'RuntimePlugin' },
+    { type: 'sync', name: 'InferAsyncModulesPlugin' },
+    { type: 'sync', name: 'DataUriPlugin' },
+    { type: 'sync', name: 'FileUriPlugin' },
+    { type: 'sync', name: 'CompatibilityPlugin' },
+    { type: 'sync', name: 'HarmonyModulesPlugin' },
+    { type: 'sync', name: 'AMDPlugin' },
+    { type: 'sync', name: 'RequireJsStuffPlugin' },
+    { type: 'sync', name: 'CommonJsPlugin' },
+    { type: 'sync', name: 'LoaderPlugin' },
+    { type: 'sync', name: 'LoaderPlugin' },
+    { type: 'sync', name: 'NodeStuffPlugin' },
+    { type: 'sync', name: 'APIPlugin' },
+    { type: 'sync', name: 'ExportsInfoApiPlugin' },
+    { type: 'sync', name: 'WebpackIsIncludedPlugin' },
+    { type: 'sync', name: 'ConstPlugin' },
+    { type: 'sync', name: 'UseStrictPlugin' },
+    { type: 'sync', name: 'RequireIncludePlugin' },
+    { type: 'sync', name: 'RequireEnsurePlugin' },
+    { type: 'sync', name: 'RequireContextPlugin' },
+    { type: 'sync', name: 'ImportPlugin' },
+    { type: 'sync', name: 'RequireContextPlugin' },
+    { type: 'sync', name: 'SystemPlugin' },
+    { type: 'sync', name: 'ImportMetaPlugin' },
+    { type: 'sync', name: 'URLPlugin' },
+    { type: 'sync', name: 'DefaultStatsFactoryPlugin' },
+    { type: 'sync', name: 'DefaultStatsPresetPlugin' },
+    { type: 'sync', name: 'DefaultStatsPrinterPlugin' },
+    { type: 'sync', name: 'JavascriptMetaInfoPlugin' },
+    { type: 'sync', name: 'EnsureChunkConditionsPlugin' },
+    { type: 'sync', name: 'RemoveEmptyChunksPlugin' },
+    { type: 'sync', name: 'MergeDuplicateChunksPlugin' },
+    { type: 'sync', name: 'SideEffectsFlagPlugin' },
+    { type: 'sync', name: 'FlagDependencyExportsPlugin' },
+    { type: 'sync', name: 'NaturalModuleIdsPlugin' },
+    { type: 'sync', name: 'NaturalChunkIdsPlugin' },
+    { type: 'sync', name: 'TemplatedPathPlugin' },
+    { type: 'sync', name: 'RecordIdsPlugin' },
+    { type: 'sync', name: 'WarnCaseSensitiveModulesPlugin' }
+  ],
+  compile: [ { type: 'sync', name: 'ExternalsPlugin' } ],
+  make: [ { type: 'async', name: 'EntryPlugin' } ],
+  watchRun: [ { type: 'sync', name: 'webpack-cli' } ],
+  invalid: [ { type: 'sync', name: 'webpack-cli' } ],
+  entryOption: [ { type: 'sync', name: 'EntryOptionPlugin' } ]
+}
 asset images/89a353e9c515885abd8e.png 14.6 KiB [emitted] [immutable] [from: images/file.png] (auxiliary name: main)
 asset output.js 13 KiB [emitted] (name: main)
 chunk (runtime: main) output.js (main) 9.58 KiB (javascript) 14.6 KiB (asset) 306 bytes (runtime) [entry] [rendered]
@@ -217,5 +382,5 @@ chunk (runtime: main) output.js (main) 9.58 KiB (javascript) 14.6 KiB (asset) 30
     [no exports]
     [used exports unknown]
     entry ./example.js main
-webpack 5.60.0 compiled successfully
+webpack 5.74.0 compiled successfully
 ```
