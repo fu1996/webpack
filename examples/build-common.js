@@ -49,8 +49,9 @@ const doCompileAndReplace = (args, prefix, callback) => {
 	} catch (e) {
 		throw new Error("Please install webpack-cli at root.");
 	}
-
-	cp.exec(`node ${path.resolve(__dirname, "../bin/webpack.js")} ${args} ${displayReasons} ${commonArgs}`, (error, stdout, stderr) => {
+	const cmdStr = `node ${path.resolve(__dirname, "../bin/webpack.js")} ${args} ${displayReasons} ${commonArgs}`;
+	console.log('cmdStr', cmdStr);
+	cp.exec(cmdStr, (error, stdout, stderr) => {
 		if (stderr)
 			console.log(stderr);
 		if (error !== null)

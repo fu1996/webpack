@@ -51,7 +51,7 @@ exports.add = function() {
 /*! runtime requirements: __webpack_require__, __webpack_exports__ */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-const add = __webpack_require__(/*! ./math */ 2).add;
+const add = (__webpack_require__(/*! ./math */ 2).add);
 exports.increment = function(val) {
     return add(val, 1);
 };
@@ -122,7 +122,7 @@ var __webpack_exports__ = {};
   \********************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: __webpack_require__ */
-const inc = __webpack_require__(/*! ./increment */ 1).increment;
+const inc = (__webpack_require__(/*! ./increment */ 1).increment);
 const a = 1;
 inc(a); // 2
 
@@ -137,19 +137,21 @@ inc(a); // 2
 ## Unoptimized
 
 ```
-asset output.js 2.51 KiB [emitted] (name: main)
+Starting loading webpack
+asset output.js 2.52 KiB [emitted] (name: main)
 chunk (runtime: main) output.js (main) 326 bytes [entry] [rendered]
   > ./example.js main
   dependent modules 254 bytes [dependent] 2 modules
   ./example.js 72 bytes [built] [code generated]
     [used exports unknown]
     entry ./example.js main
-webpack 5.60.0 compiled successfully
+webpack 5.74.0 compiled successfully
 ```
 
 ## Production mode
 
 ```
+Starting loading webpack
 asset output.js 310 bytes [emitted] [minimized] (name: main)
 chunk (runtime: main) output.js (main) 326 bytes [entry] [rendered]
   > ./example.js main
@@ -157,5 +159,5 @@ chunk (runtime: main) output.js (main) 326 bytes [entry] [rendered]
   ./example.js 72 bytes [built] [code generated]
     [no exports used]
     entry ./example.js main
-webpack 5.60.0 compiled successfully
+webpack 5.74.0 compiled successfully
 ```
