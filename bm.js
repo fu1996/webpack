@@ -12,16 +12,16 @@ var TIMES = 5;
 var root = path.join(__dirname, "test", "browsertest");
 
 var testCases = {
-	"javascript          ": path.join(root, "lib", "a.js"),
+	// "javascript          ": path.join(root, "lib", "a.js"),
 	"javascript with deps": path.join(root, "lib", "b.js"),
-	"css                 ": path.join(root, "node_modules", "resources-module", "stylesheet-import2.css"),
-	"less                ": path.join(root, "node_modules", "resources-module", "import2.less"),
-	"jade                ": path.join(root, "resources", "template.jade"),
-	"json                ": path.join(__dirname, "package.json"),
-	"coffee              ": path.join(root, "resources", "script.coffee"),
-	"file                ": path.join(__dirname, "node_modules", "file-loader", "png.js") + "!" + path.join(root, "img", "image.png"),
-	"raw                 ": path.join(__dirname, "node_modules", "raw-loader") + "!" + path.join(root, "resources", "abc.txt"),
-	"mixed               ": path.join(root, "lib", "index.web.js"),
+	// "css                 ": path.join(root, "node_modules", "resources-module", "stylesheet-import2.css"),
+	// "less                ": path.join(root, "node_modules", "resources-module", "import2.less"),
+	// "jade                ": path.join(root, "resources", "template.jade"),
+	// "json                ": path.join(__dirname, "package.json"),
+	// "coffee              ": path.join(root, "resources", "script.coffee"),
+	// "file                ": path.join(__dirname, "node_modules", "file-loader", "png.js") + "!" + path.join(root, "img", "image.png"),
+	// "raw                 ": path.join(__dirname, "node_modules", "raw-loader") + "!" + path.join(root, "resources", "abc.txt"),
+	// "mixed               ": path.join(root, "lib", "index.web.js"),
 }
 
 var TESTS = {}
@@ -43,6 +43,7 @@ Object.keys(testCases).forEach(function(name) {
 
 var workers = new (require("./lib/Workers"))(path.join(__dirname, "lib", "worker.js"), require("os").cpus().length)
 function runWebpack(name, file, single, debug, min, withWorkers, cb) {
+	console.log('runWebpack');
 	webpack(file, {
 		output: path.join(root, "js", "bm", name.trim() + ".js"),
 		single: single,
