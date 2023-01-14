@@ -288,6 +288,7 @@
   "ignorePaths": [
     "**/dist/**",
     "examples/**/README.md",
+    "examples/01-base/**",
     "**/webpack.lock.data/**",
     "package.json",
     "yarn.lock",
