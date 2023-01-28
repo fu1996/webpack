@@ -18,6 +18,10 @@ const config = {
 		clean: true,
 		path: path.resolve(__dirname, "dist")
 	},
+	parallelism: 1,
+	infrastructureLogging: {
+		debug: true
+	},
 	plugins: [
 		new HelloCompilationPlugin(),
 		new FileListPlugin()
